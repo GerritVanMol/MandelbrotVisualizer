@@ -1,0 +1,41 @@
+﻿<Window x:Class="WPF_Mandelbrot.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF_Mandelbrot"
+        mc:Ignorable="d"
+        Title="Mandelbrot visualizer"
+        Height="700" Width="900">
+    <Grid>
+        <DockPanel LastChildFill="true" Background="White" >
+            <StackPanel DockPanel.Dock="Right" Orientation="Vertical" Width="200" Margin="10">
+                <Button  Content="Reset" Command="{Binding ResetMandelbrot}" Margin="5"/>
+                <Label Content="Total iterations:"/>
+                <ComboBox x:Name="cbxIterations" SelectionChanged="ComboBox_IterationsSelectionChanged" Margin="5"></ComboBox>
+                <Label Content="Specific iteration input:"/>
+                <TextBox x:Name="iterationTxt" KeyDown="TextBox_KeyDown" TextWrapping="Wrap" Margin="5"/>
+                <StackPanel Grid.Row="0" Grid.Column="1">
+                    <Label HorizontalAlignment="Left" Grid.Column="0" Content="Execution time:" Width="96"/>
+                    <TextBlock  x:Name="executionTimeTxtBlock" Width="112"/>
+                </StackPanel>
+
+                <Label Content="Color selection:"/>
+                <ComboBox x:Name="cbxColors" SelectionChanged="ComboBox_ColorSelectionChanged" Margin="5"/>
+                <GroupBox Header="Variable info" Margin="10,20" Padding="10">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock HorizontalAlignment="Left" Text="{Binding MouseCoordinateX, Mode=TwoWay, StringFormat=X mouse position: {0:N4}}" x:Name="xCoordinateTxt" Width="140" Margin="5"/>
+                        <TextBlock HorizontalAlignment="Left" Text="{Binding MouseCoordinateY, Mode=TwoWay, StringFormat=Y mouse position: {0:N4}}" x:Name="yCoordinateTxt" Width="140" Margin="5"/> 
+                        <TextBlock HorizontalAlignment="Left" Text="{Binding StepSize, Mode=TwoWay, StringFormat=Scale: {0:N4}}" x:Name="scaleFactor" Width="140" Margin="5"/>
+                        <TextBlock HorizontalAlignment="Left" Text="{Binding ImageCoordTpL, Mode=TwoWay, StringFormat=Coord top-left: {0:N4}}" x:Name="topLeft" Width="140" Margin="5"/>
+                        <TextBlock HorizontalAlignment="Left" Text="{Binding ImageCoordBtR, Mode=TwoWay, StringFormat=Coord bot-right: {0:N4}}" x:Name="bottomRight" Width="140" Margin="5"/>
+                    </StackPanel>
+                </GroupBox>
+            </StackPanel>
+
+            <Border x:Name="border" Margin="0, 0, 0,0" BorderThickness="1" Height="600" Width="600" BorderBrush="DarkGreen">
+                <Image MouseMove="Image_MouseMove" MouseLeftButtonUp="Image_MouseLeftButtonUpAsync" x:Name="Image" Source="{Binding BitmapDisplay}" Stretch="Fill" HorizontalAlignment="Stretch" Margin="0,0,0,0"  />
+            </Border>
+        </DockPanel>
+    </Grid>
+</Window>
