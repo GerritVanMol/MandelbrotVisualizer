@@ -1,1 +1,1 @@
-# MandelbrotVisualizer
+### Mandelbrot fractal visualizer
